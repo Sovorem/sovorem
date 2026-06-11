@@ -1,0 +1,23 @@
+name: Tag release
+
+on:
+  push:
+    branches: [main]
+    paths: [version.txt]
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - run: |
+          VERSION="$(cat version.txt)"
+          git tag "$VERSION"
+          git push origin tag "$VERSION"

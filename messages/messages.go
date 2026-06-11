@@ -1,0 +1,38 @@
+package messages
+
+import api "github.com/sovorem/sovorem/client"
+
+type StartStepMsg struct {
+	CMD             string
+	URL             string
+	Method          string
+	TmdlQuery       *string
+	NoPenaltyOnFail bool
+}
+
+type StartTestMsg struct {
+	Text string
+}
+
+type ResolveTestMsg struct {
+	StepIndex int
+	TestIndex int
+	Passed    *bool
+}
+
+type DoneStepMsg struct {
+	Result      api.VerificationResultSlug
+	Failure     *api.StructuredErrCLI
+	XPReward    int
+	XPBreakdown []api.XPBreakdownItem
+}
+
+type ResolveStepMsg struct {
+	Index  int
+	Passed *bool
+	Result *api.CLIStepResult
+}
+
+type SleepMsg struct {
+	DurationMs int
+}

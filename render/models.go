@@ -1,0 +1,44 @@
+package render
+
+import (
+	api "github.com/sovorem/sovorem/client"
+	"github.com/charmbracelet/bubbles/spinner"
+)
+
+type testModel struct {
+	text     string
+	passed   *bool
+	finished bool
+}
+
+type stepModel struct {
+	step            string
+	passed          *bool
+	result          *api.CLIStepResult
+	finished        bool
+	tests           []testModel
+	sleepAfter      string
+	noPenaltyOnFail bool
+}
+
+type rootModel struct {
+	steps       []stepModel
+	spinner     spinner.Model
+	result      api.VerificationResultSlug
+	failure     *api.StructuredErrCLI
+	xpReward    int
+	xpBreakdown []api.XPBreakdownItem
+	isSubmit    bool
+	finalized   bool
+	clear       bool
+}
+
+func initModel(isSubmit bool) rootModel {
+	s := spinner.New()
+	s.Spinner = spinner.Dot
+	return rootModel{
+		spinner:  s,
+		isSubmit: isSubmit,
+		steps:    []stepModel{},
+	}
+}
