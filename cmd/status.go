@@ -11,8 +11,8 @@ import (
 
 var statusCmd = &cobra.Command{
 	Use:   "status",
-	Short: "Show authentication and CLI version status",
-	Long:  "Display whether you're logged in and whether the CLI is up to date",
+	Short: "Տեսնել login-ի և CLI-ի version-ի status-ը",
+	Long:  "Ցույց տալ՝ արդյոք login ես եղել և արդյոք CLI-ը update արած ա",
 	Run: func(cmd *cobra.Command, args []string) {
 		checkAuthStatus()
 		fmt.Println() // Blank line for readability
@@ -23,32 +23,32 @@ var statusCmd = &cobra.Command{
 func checkAuthStatus() {
 	refreshToken := viper.GetString("refresh_token")
 	if refreshToken == "" {
-		fmt.Println("Not logged in")
-		fmt.Println("Run 'sovorem login' to authenticate")
+		fmt.Println("Login եղած չես")
+		fmt.Println("Run արա 'sovorem login'՝ login լինելու համար")
 		return
 	}
 
 	// Verify token is still valid by attempting to refresh
 	_, err := api.FetchAccessToken()
 	if err != nil {
-		fmt.Println("Authentication expired")
-		fmt.Println("Run 'sovorem login' to re-authenticate")
+		fmt.Println("Authentication-ի ժամկետն անցել ա")
+		fmt.Println("Run արա 'sovorem login'՝ նորից login լինելու համար")
 		return
 	}
 
 	user, err := api.FetchCurrentUser()
 	if err == nil && user != nil && user.Handle != "" {
-		fmt.Printf("Logged in as @%s\n", user.Handle)
+		fmt.Printf("Login ես եղել որպես @%s\n", user.Handle)
 		return
 	}
 
-	fmt.Println("Logged in")
+	fmt.Println("Login եղած ես")
 }
 
 func checkVersionStatus(cmd *cobra.Command) {
 	info := version.FromContext(cmd.Context())
 	if info == nil || info.FailedToFetch != nil {
-		fmt.Println("Unable to check version status")
+		fmt.Println("Հնարավոր չեղավ ստուգել version-ի status-ը")
 		if info != nil && info.FailedToFetch != nil {
 			fmt.Printf("Error: %s\n", info.FailedToFetch.Error())
 		}
@@ -56,10 +56,10 @@ func checkVersionStatus(cmd *cobra.Command) {
 	}
 
 	if info.IsOutdated {
-		fmt.Printf("CLI outdated: %s → %s available\n", info.CurrentVersion, info.LatestVersion)
-		fmt.Println("Run 'sovorem upgrade' to update")
+		fmt.Printf("CLI-ը հնացել ա. %s → հասանելի ա %s\n", info.CurrentVersion, info.LatestVersion)
+		fmt.Println("Run արա 'sovorem upgrade'՝ update անելու համար")
 	} else {
-		fmt.Printf("CLI up to date (%s)\n", info.CurrentVersion)
+		fmt.Printf("CLI-ը update արած ա (%s)\n", info.CurrentVersion)
 	}
 }
 

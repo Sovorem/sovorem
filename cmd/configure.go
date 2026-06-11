@@ -14,7 +14,7 @@ import (
 var configureCmd = &cobra.Command{
 	Use:     "config",
 	Aliases: []string{"configure"},
-	Short:   "Change configuration of the CLI",
+	Short:   "Փոխել CLI-ի configuration-ը",
 }
 
 var defaultColors = map[string]string{
@@ -28,7 +28,7 @@ var defaultColors = map[string]string{
 // the colors of the text output
 var configureColorsCmd = &cobra.Command{
 	Use:   "colors",
-	Short: "Get or set the CLI text colors",
+	Short: "Տեսնել կամ սահմանել CLI-ի տեքստի գույները",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		resetColors, err := cmd.Flags().GetBool("reset")
 		if err != nil {
@@ -45,7 +45,7 @@ var configureColorsCmd = &cobra.Command{
 				return fmt.Errorf("failed to write config: %v", err)
 			}
 
-			fmt.Println("Colors reset!")
+			fmt.Println("Գույները reset եղան!")
 			return err
 		}
 
@@ -69,7 +69,7 @@ var configureColorsCmd = &cobra.Command{
 			key := "color." + color
 			viper.Set(key, configVal)
 			style := lipgloss.NewStyle().Foreground(lipgloss.Color(configVal))
-			fmt.Println("set " + style.Render(key) + "!")
+			fmt.Println("սահմանվեց " + style.Render(key) + "!")
 		}
 
 		if noFlags {
@@ -92,7 +92,7 @@ var configureColorsCmd = &cobra.Command{
 // configureBaseURLCmd represents the `configure base_url` command
 var configureBaseURLCmd = &cobra.Command{
 	Use:   "base_url [url]",
-	Short: "Get or set the base URL for HTTP tests, overriding lesson defaults",
+	Short: "Տեսնել կամ սահմանել HTTP test-երի base URL-ը՝ դասի default-ները override անելու համար",
 	Args:  cobra.RangeArgs(0, 1),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		resetOverrideBaseURL, err := cmd.Flags().GetBool("reset")
@@ -106,7 +106,7 @@ var configureBaseURLCmd = &cobra.Command{
 			if err != nil {
 				return fmt.Errorf("failed to write config: %v", err)
 			}
-			fmt.Println("Base URL reset!")
+			fmt.Println("Base URL-ը reset եղավ!")
 			return err
 		}
 
@@ -114,7 +114,7 @@ var configureBaseURLCmd = &cobra.Command{
 			baseURL := viper.GetString("override_base_url")
 			message := fmt.Sprintf("Base URL: %s", baseURL)
 			if baseURL == "" {
-				message = "No base URL set"
+				message = "Base URL սահմանված չի"
 			}
 			fmt.Println(message)
 			return nil
@@ -128,10 +128,10 @@ var configureBaseURLCmd = &cobra.Command{
 		// `Scheme` and leaves `Host` as an empty string, so we must check for
 		// both
 		if overrideBaseURL.Scheme == "" || overrideBaseURL.Host == "" {
-			return fmt.Errorf("invalid URL: provide both protocol scheme and hostname")
+			return fmt.Errorf("սխալ URL. նշիր թե՛ protocol-ի scheme-ը (http/https), թե՛ hostname-ը")
 		}
 		if overrideBaseURL.Scheme == "https" {
-			fmt.Println("warning: protocol scheme is set to https")
+			fmt.Println("զգուշացում. protocol-ը սահմանված ա որպես https")
 		}
 
 		viper.Set("override_base_url", overrideBaseURL.String())
@@ -139,7 +139,7 @@ var configureBaseURLCmd = &cobra.Command{
 		if err != nil {
 			return fmt.Errorf("failed to write config: %v", err)
 		}
-		fmt.Printf("Base URL set to %v\n", overrideBaseURL.String())
+		fmt.Printf("Base URL-ը սահմանվեց %v\n", overrideBaseURL.String())
 		return err
 	},
 }
@@ -148,12 +148,12 @@ func init() {
 	rootCmd.AddCommand(configureCmd)
 
 	configureCmd.AddCommand(configureBaseURLCmd)
-	configureBaseURLCmd.Flags().Bool("reset", false, "reset the base URL to use the lesson's defaults")
+	configureBaseURLCmd.Flags().Bool("reset", false, "reset անել base URL-ը՝ դասի default արժեքները օգտագործելու համար")
 
 	configureCmd.AddCommand(configureColorsCmd)
-	configureColorsCmd.Flags().Bool("reset", false, "reset colors to their default values")
+	configureColorsCmd.Flags().Bool("reset", false, "reset անել գույները իրենց default արժեքներին")
 	for color, defaultVal := range defaultColors {
-		configureColorsCmd.Flags().String(color, "", "ANSI number or hex string")
+		configureColorsCmd.Flags().String(color, "", "ANSI թիվ կամ hex տող")
 		viper.SetDefault("color."+color, defaultVal)
 	}
 }

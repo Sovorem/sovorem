@@ -29,7 +29,7 @@ var logo string
 var loginCmd = &cobra.Command{
 	Use:          "login",
 	Aliases:      []string{"auth", "authenticate", "signin"},
-	Short:        "Authenticate the CLI with your account",
+	Short:        "Login անել CLI-ով քո account-ում",
 	SilenceUsage: true,
 	PreRun:       requireUpdated,
 	RunE: func(cmd *cobra.Command, args []string) error {
@@ -38,24 +38,24 @@ var loginCmd = &cobra.Command{
 			w = 0
 		}
 		// Pad the logo with whitespace
-		welcome := lipgloss.PlaceHorizontal(lipgloss.Width(logoRenderer()), lipgloss.Center, "Welcome to the Sovorem.am CLI!")
+		welcome := lipgloss.PlaceHorizontal(lipgloss.Width(logoRenderer()), lipgloss.Center, "Բարի գալուստ Sovorem.am CLI!")
 
 		if w >= lipgloss.Width(welcome) {
 			fmt.Print(logoRenderer())
 			fmt.Print(welcome, "\n\n")
 		} else {
-			fmt.Print("Welcome to the Sovorem.am CLI!\n\n")
+			fmt.Print("Բարի գալուստ Sovorem.am CLI!\n\n")
 		}
 
 		loginURL := viper.GetString("frontend_url") + "/cli/login"
 
-		fmt.Println("Please navigate to:\n" + loginURL)
+		fmt.Println("Անցիր էս հղումով.\n" + loginURL)
 
 		inputChan := make(chan string)
 
 		go func() {
 			reader := bufio.NewReader(os.Stdin)
-			fmt.Print("\nPaste your login code: ")
+			fmt.Print("\nՏեղադրիր login code-ը. ")
 			text, _ := reader.ReadString('\n')
 			inputChan <- text
 		}()
@@ -82,7 +82,7 @@ var loginCmd = &cobra.Command{
 		}
 
 		if creds.AccessToken == "" || creds.RefreshToken == "" {
-			return errors.New("invalid credentials received")
+			return errors.New("ստացվել են անվավեր credentials-ներ")
 		}
 
 		viper.Set("access_token", creds.AccessToken)
@@ -94,7 +94,7 @@ var loginCmd = &cobra.Command{
 			return err
 		}
 
-		fmt.Println("Logged in successfully!")
+		fmt.Println("Հաջողությամբ login եղար! 🎉")
 		return nil
 	},
 }

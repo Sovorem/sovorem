@@ -13,15 +13,15 @@ import (
 var upgradeCmd = &cobra.Command{
 	Use:     "upgrade",
 	Aliases: []string{"update"},
-	Short:   "Install the latest version of the CLI",
+	Short:   "Install անել CLI-ի ամենավերջին version-ը",
 	Run: func(cmd *cobra.Command, args []string) {
 		info := version.FromContext(cmd.Context())
 		if !info.IsOutdated {
-			fmt.Println("Sovorem.am CLI is already up to date.")
+			fmt.Println("Sovorem.am CLI-ը արդեն update արած ա։")
 			return
 		}
 
-		fmt.Println("Upgrading Sovorem.am CLI...")
+		fmt.Println("Update ենք անում Sovorem.am CLI-ը...")
 
 		command := exec.Command("go", "install", "github.com/sovorem/sovorem@latest")
 		command.Stdout = os.Stdout
@@ -40,7 +40,7 @@ var upgradeCmd = &cobra.Command{
 			newVersion = "latest"
 		}
 
-		fmt.Printf("Successfully upgraded to %s!\n", newVersion)
+		fmt.Printf("Հաջողությամբ update եղավ %s version-ին! 🎉\n", newVersion)
 		os.Exit(0) // in case old version is still running
 	},
 }

@@ -45,10 +45,10 @@ func FetchUpdateInfo(currentVersion string) VersionInfo {
 
 func (v *VersionInfo) PromptUpdateIfAvailable() {
 	if v.IsOutdated {
-		fmt.Fprintln(os.Stderr, "A new version of the sovorem CLI is available!")
-		fmt.Fprintln(os.Stderr, "Please run the following command to update:")
+		fmt.Fprintln(os.Stderr, "Հասանելի ա sovorem CLI-ի նոր version!")
+		fmt.Fprintln(os.Stderr, "CLI-ը update անելու համար run արա էս command-ը.")
 		fmt.Fprintln(os.Stderr, "  sovorem upgrade")
-		fmt.Fprintln(os.Stderr, "or")
+		fmt.Fprintln(os.Stderr, "կամ")
 		fmt.Fprintf(os.Stderr, "  go install github.com/sovorem/sovorem@%s\n\n", v.LatestVersion)
 	}
 }

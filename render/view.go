@@ -68,7 +68,7 @@ func renderJqOutputs(outputs []api.CLICommandJqOutput) string {
 	}
 
 	var str strings.Builder
-	str.WriteString("\n > jq output:\n\n")
+	str.WriteString("\n > jq-ի output-ը.\n\n")
 	for _, output := range outputs {
 		str.WriteString(gray.Render(fmt.Sprintf("Query: %s", output.Query)))
 		str.WriteByte('\n')
@@ -79,12 +79,12 @@ func renderJqOutputs(outputs []api.CLICommandJqOutput) string {
 			continue
 		}
 		if len(output.Results) == 0 {
-			str.WriteString(gray.Render("Results: [none]"))
+			str.WriteString(gray.Render("Արդյունքներ. [չկան]"))
 			str.WriteByte('\n')
 			str.WriteByte('\n')
 			continue
 		}
-		str.WriteString(gray.Render("Results:"))
+		str.WriteString(gray.Render("Արդյունքներ."))
 		str.WriteByte('\n')
 		for _, line := range output.Results {
 			str.WriteString(gray.Render("  - " + line))
@@ -118,18 +118,18 @@ func (m rootModel) View() string {
 		if step.result.CLICommandResult != nil {
 			for _, test := range step.tests {
 				if strings.Contains(test.text, "exit code") {
-					fmt.Fprintf(&str, "\n > Command exit code: %d\n", step.result.CLICommandResult.ExitCode)
+					fmt.Fprintf(&str, "\n > Command-ի exit code-ը. %d\n", step.result.CLICommandResult.ExitCode)
 					break
 				}
 			}
-			str.WriteString(" > Command stdout:\n\n")
+			str.WriteString(" > Command-ի stdout-ը.\n\n")
 			sliced := strings.SplitSeq(step.result.CLICommandResult.Stdout, "\n")
 			i := 0
 			runeCount := 0
 			const maxLines, maxRunes = 32, 5120
 			for s := range sliced {
 				if i >= maxLines || runeCount >= maxRunes {
-					str.WriteString(gray.Render("... output visually truncated, full output captured"))
+					str.WriteString(gray.Render("... output-ը տեսողականորեն կրճատվել ա, բայց ամբողջական տարբերակը պահվել ա"))
 					str.WriteByte('\n')
 					break
 				}
@@ -141,7 +141,7 @@ func (m rootModel) View() string {
 			str.WriteString(renderJqOutputs(step.result.CLICommandResult.JqOutputs))
 			availableVariables, expectsVariables := availableVariablesForCLIResult(*step.result.CLICommandResult)
 			if expectsVariables {
-				str.WriteString(renderVariableSection("Variables Available", availableVariables))
+				str.WriteString(renderVariableSection("Հասանելի փոփոխականները", availableVariables))
 			}
 		}
 
@@ -153,11 +153,11 @@ func (m rootModel) View() string {
 	if m.result == api.VerificationResultSlugSuccess && m.isSubmit {
 		str.WriteByte('\n')
 		str.WriteByte('\n')
-		str.WriteString(green.Render("All tests passed! 🎉"))
+		str.WriteString(green.Render("Բոլոր test-երը անցան! 🎉"))
 		str.WriteByte('\n')
 		if m.xpReward >= 0 {
 			str.WriteByte('\n')
-			str.WriteString(green.Bold(true).Render(fmt.Sprintf("Gained +%d XP", m.xpReward)))
+			str.WriteString(green.Bold(true).Render(fmt.Sprintf("Ստացար +%d XP", m.xpReward)))
 			str.WriteByte('\n')
 			for _, item := range m.xpBreakdown {
 				if item.XP == 0 {
@@ -178,38 +178,38 @@ func (m rootModel) View() string {
 			}
 		}
 		str.WriteByte('\n')
-		str.WriteString(green.Render("Return to your browser to continue with the next lesson."))
+		str.WriteString(green.Render("Վերադարձիր browser՝ հաջորդ դասին անցնելու համար։"))
 		str.WriteByte('\n')
 		str.WriteByte('\n')
 	} else if m.result == api.VerificationResultSlugNoop {
-		str.WriteString("\n\nTests failed! ❌")
-		fmt.Fprintf(&str, "\n\nFailed Step: %v", m.failure.FailedStepIndex+1)
-		str.WriteString("\nError: ")
+		str.WriteString("\n\nTest-երը չանցան! ❌")
+		fmt.Fprintf(&str, "\n\nՉանցած Step-ը. %v", m.failure.FailedStepIndex+1)
+		str.WriteString("\nError. ")
 		str.WriteString(m.failure.ErrorMessage)
 		str.WriteByte('\n')
 		str.WriteByte('\n')
 		str.WriteString(white.Render(safeStepIcon))
-		str.WriteString(" This was a safe step.\n")
-		str.WriteString("You haven't passed, but you also haven't lost Amulet or Perfect Run progress.\n\n")
+		str.WriteString(" Սա safe step էր։\n")
+		str.WriteString("Դեռ չես անցել, բայց Amulet-ի կամ Perfect Run-ի progress-ը չես կորցրել։\n\n")
 	} else if m.result == api.VerificationResultSlugFailure {
 		str.WriteByte('\n')
 		str.WriteByte('\n')
-		str.WriteString(red.Render("Tests failed! ❌"))
+		str.WriteString(red.Render("Test-երը չանցան! ❌"))
 		if m.failure != nil {
 			if m.failure.FailedStepIndex >= 0 && m.failure.FailedStepIndex < len(m.steps) {
-				str.WriteString(red.Render(fmt.Sprintf("\n\nFailed Command: %s", m.steps[m.failure.FailedStepIndex].step)))
+				str.WriteString(red.Render(fmt.Sprintf("\n\nՉանցած Command-ը. %s", m.steps[m.failure.FailedStepIndex].step)))
 			}
-			str.WriteString(red.Render(fmt.Sprintf("\n\nFailed Step: %v", m.failure.FailedStepIndex+1)))
-			str.WriteString(red.Render(fmt.Sprintf("\nError: %s", m.failure.ErrorMessage)))
+			str.WriteString(red.Render(fmt.Sprintf("\n\nՉանցած Step-ը. %v", m.failure.FailedStepIndex+1)))
+			str.WriteString(red.Render(fmt.Sprintf("\nError. %s", m.failure.ErrorMessage)))
 		} else {
-			str.WriteString(red.Render("\n\nFailed Step: unknown"))
-			str.WriteString(red.Render("\nError: unknown"))
+			str.WriteString(red.Render("\n\nՉանցած Step-ը. unknown"))
+			str.WriteString(red.Render("\nError. unknown"))
 		}
 		str.WriteByte('\n')
 		str.WriteByte('\n')
 		currentDate := time.Now().Format("2006-01-02")
 		if strings.HasSuffix(currentDate, "04-01") {
-			str.WriteString(magenta.Render(fmt.Sprintf("This incident has been reported to your system administrator. [%s]\n", currentDate)))
+			str.WriteString(magenta.Render(fmt.Sprintf("Էս դեպքի մասին զեկուցվել ա քո համակարգային ադմինիստրատորին։ [%s]\n", currentDate)))
 		}
 	}
 

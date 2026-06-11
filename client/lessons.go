@@ -258,10 +258,10 @@ func SubmitCLILesson(uuid string, results []CLIStepResult, captureDebug bool) (L
 		return LessonSubmissionEvent{}, debugData, err
 	}
 	if code == 402 {
-		return LessonSubmissionEvent{}, debugData, fmt.Errorf("to run and submit the tests for this lesson, you must have an active Sovorem.am membership\nhttps://sovorem.am/pricing")
+		return LessonSubmissionEvent{}, debugData, fmt.Errorf("էս դասի test-երը run և submit անելու համար պետք ա ունենաս ակտիվ Sovorem.am membership\nhttps://sovorem.am/pricing")
 	}
 	if code != 200 {
-		return LessonSubmissionEvent{}, debugData, fmt.Errorf("failed to submit CLI lesson (code %v): %s", code, string(resp))
+		return LessonSubmissionEvent{}, debugData, fmt.Errorf("չհաջողվեց submit անել CLI դասը (code %v). %s", code, string(resp))
 	}
 
 	result := LessonSubmissionEvent{}

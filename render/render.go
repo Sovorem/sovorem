@@ -42,7 +42,7 @@ func (m rootModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		return m, tea.Quit
 
 	case messages.StartStepMsg:
-		step := fmt.Sprintf("Running: %s", msg.CMD)
+		step := fmt.Sprintf("Run ենք անում. %s", msg.CMD)
 		if msg.TmdlQuery != nil {
 			step += fmt.Sprintf(" (TMDL query: '%s')", *msg.TmdlQuery)
 		}
@@ -62,9 +62,9 @@ func (m rootModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			durationSec := float64(msg.DurationMs) / 1000.0
 			sleepText := ""
 			if durationSec >= 1.0 {
-				sleepText = fmt.Sprintf("Waiting %.1fs...", durationSec)
+				sleepText = fmt.Sprintf("Սպասում ենք %.1fs...", durationSec)
 			} else {
-				sleepText = fmt.Sprintf("Waiting %dms...", msg.DurationMs)
+				sleepText = fmt.Sprintf("Սպասում ենք %dms...", msg.DurationMs)
 			}
 			m.steps[lastStepIdx].sleepAfter = sleepText
 		}

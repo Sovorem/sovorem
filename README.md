@@ -1,48 +1,48 @@
 # Sovorem.am CLI
 
-Official command-line tool for [Sovorem.am](https://sovorem.am/) — the Armenian backend development learning platform. Students use this CLI to run lesson tests locally and submit cryptographically signed results to the Sovorem.am backend.
+[Sovorem.am](https://sovorem.am/)-ի պաշտոնական command-line գործիքը՝ հայկական backend ծրագրավորման ուսումնական հարթակի համար։ Ուսանողները օգտագործում են էս CLI-ը՝ դասի test-երը լոկալ run անելու և ստորագրված արդյունքները Sovorem.am backend-ին submit անելու համար։
 
-## Table of Contents
+## Բովանդակություն
 
-- [Installation](#installation)
-  - [1. Install Go](#1-install-go)
-  - [2. Install the Sovorem CLI](#2-install-the-sovorem-cli)
-  - [3. Login to the CLI](#3-login-to-the-cli)
-- [Usage](#usage)
-- [Configuration](#configuration)
-  - [Base URL for HTTP tests](#base-url-for-http-tests)
-  - [CLI colors](#cli-colors)
-  - [Troubleshooting the Config](#troubleshooting-the-config)
-- [Upgrading](#upgrading)
-  - [Troubleshooting Upgrading](#troubleshooting-upgrading)
+- [Installation (Տեղադրում)](#installation-տեղադրում)
+  - [1. Install Go (Տեղադրել Go-ն)](#1-install-go-տեղադրել-go-ն)
+  - [2. Install the Sovorem CLI (Տեղադրել Sovorem CLI-ը)](#2-install-the-sovorem-cli-տեղադրել-sovorem-cli-ը)
+  - [3. Login to the CLI (Login լինել CLI-ում)](#3-login-to-the-cli-login-լինել-cli-ում)
+- [Usage (Օգտագործում)](#usage-օգտագործում)
+- [Configuration (Configuration)](#configuration-configuration)
+  - [Base URL for HTTP tests (Base URL HTTP test-երի համար)](#base-url-for-http-tests-base-url-http-test-երի-համար)
+  - [CLI colors (CLI-ի գույները)](#cli-colors-cli-ի-գույները)
+  - [Troubleshooting the Config (Config-ի խնդիրների լուծում)](#troubleshooting-the-config-config-ի-խնդիրների-լուծում)
+- [Upgrading (Update անելը)](#upgrading-update-անելը)
+  - [Troubleshooting Upgrading (Update-ի խնդիրների լուծում)](#troubleshooting-upgrading-update-ի-խնդիրների-լուծում)
 
-## Installation
+## Installation (Տեղադրում)
 
-### 1. Install Go
+### 1. Install Go (Տեղադրել Go-ն)
 
-To use the Sovorem CLI, you need an up-to-date Golang toolchain installed on your system.
+Sovorem CLI-ից օգտվելու համար քեզ պետք ա համակարգչիդ վրա տեղադրված Golang-ի թարմ version։
 
-Most courses are designed for Linux or macOS — or Linux-in-Windows via WSL. If you're on Windows, usually you'll want WSL and the Linux instructions below. Some courses also support Windows/PowerShell natively.
+Դասընթացների մեծ մասը նախատեսված են Linux-ի կամ macOS-ի համար (կամ Linux-ը Windows-ում՝ WSL-ի միջոցով)։ Եթե Windows ես օգտագործում, սովորաբար ավելի լավ ա ընտրել WSL-ը և հետևել ներքևի Linux-ի հրահանգներին։ Որոշ դասեր նաև Windows/PowerShell-ով են աշխատում։
 
-**Option 1 (Linux/WSL/macOS):** The [Webi installer](https://webinstall.dev/golang/) is the simplest way for most people:
+**Տարբերակ 1 (Linux/WSL/macOS).** [Webi installer-ը](https://webinstall.dev/golang/) ամենապարզ ձևն ա.
 
 ```sh
 curl -sS https://webi.sh/golang | sh
 ```
 
-**Option 2 (any platform, including Windows/PowerShell):** Use the [official Golang installation instructions](https://go.dev/doc/install).
+**Տարբերակ 2 (ցանկացած ՕՀ, ներառյալ Windows/PowerShell).** Օգտվիր [Golang-ի պաշտոնական տեղադրման հրահանգներից](https://go.dev/doc/install)։
 
-After installing Go, open a new shell session and run `go version` to confirm it works.
+Go-ն տեղադրելուց հետո բացիր նոր terminal-ի պատուհան ու run արա `go version`՝ համոզվելու համար, որ ամեն ինչ աշխատում ա։
 
-### 2. Install the Sovorem CLI
+### 2. Install the Sovorem CLI (Տեղադրել Sovorem CLI-ը)
 
 ```sh
 go install github.com/sovorem/sovorem@latest
 ```
 
-Run `sovorem --version` to verify the installation.
+Run արա `sovorem --version`՝ տեղադրումը ստուգելու համար։
 
-If you get "command not found", add Go's bin directory to your `PATH` (usually `$HOME/go/bin`):
+Եթե ստանում ես "command not found" error-ը, ապա ավելացրու Go-ի bin directory-ն քո `PATH`-ում (սովորաբար `$HOME/go/bin`-ն ա).
 
 ```sh
 # Linux/WSL
@@ -61,34 +61,34 @@ source ~/.zshrc
 fish_add_path $HOME/go/bin
 ```
 
-### 3. Login to the CLI
+### 3. Login to the CLI (Login լինել CLI-ում)
 
-Run `sovorem login` to authenticate with your Sovorem.am account. After authenticating, you're ready to run and submit lessons.
+Run արա `sovorem login`՝ քո Sovorem.am account-ով մուտք գործելու (authenticate լինելու) համար։ Դրանից հետո արդեն պատրաստ ես run ու submit անելու դասերը։
 
-## Usage
+## Usage (Օգտագործում)
 
-| Command | Description |
+| Command | Description (Նկարագրություն) |
 |---------|-------------|
-| `sovorem login` | Authenticate with your Sovorem.am account |
-| `sovorem logout` | Disconnect the CLI from your account |
-| `sovorem status` | Show login and version status |
-| `sovorem run UUID` | Run a lesson's tests without submitting |
-| `sovorem run UUID -s` | Run tests and submit in one step |
-| `sovorem submit UUID` | Run tests and submit results to Sovorem.am |
-| `sovorem config base_url URL` | Override the base URL for HTTP tests |
-| `sovorem upgrade` | Install the latest CLI version |
+| `sovorem login` | Մուտք գործել քո Sovorem.am account-ով (authenticate լինել) |
+| `sovorem logout` | Logout լինել CLI-ից (անջատել account-ը) |
+| `sovorem status` | Ցույց տալ login-ի և version-ի status-ը |
+| `sovorem run UUID` | Run անել դասի test-երը՝ առանց submit անելու |
+| `sovorem run UUID -s` | Run անել test-երը և միանգամից submit անել |
+| `sovorem submit UUID` | Run անել test-երը և արդյունքները submit անել Sovorem.am |
+| `sovorem config base_url URL` | Override անել HTTP test-երի base URL-ը |
+| `sovorem upgrade` | Տեղադրել CLI-ի ամենավերջին version-ը |
 
-Lesson UUIDs are shown on each CLI lesson page at [sovorem.am](https://sovorem.am).
+Դասի UUID-ները երևում են [sovorem.am](https://sovorem.am)-ի համապատասխան դասի էջում։
 
-## Configuration
+## Configuration (Configuration)
 
-The CLI stores settings in `~/.sovorem.yaml`, or `$XDG_CONFIG_HOME/sovorem/config.yaml` when `XDG_CONFIG_HOME` is set.
+CLI-ն պահում ա իր settings-ը `~/.sovorem.yaml` ֆայլում, կամ `$XDG_CONFIG_HOME/sovorem/config.yaml`-ում, եթե `XDG_CONFIG_HOME`-ը սահմանված ա։
 
-All commands support `-h`/`--help`.
+Բոլոր command-երը աջակցում են `-h`/`--help` flag-երը։
 
-### Base URL for HTTP tests
+### Base URL for HTTP tests (Base URL HTTP test-երի համար)
 
-For lessons with HTTP tests, you can set a base URL that overrides the lesson default. This is useful when your local server runs on a different port.
+HTTP test-եր ունեցող դասերի համար կարող ես սահմանել base URL, որը կփոխարինի (override կանի) դասի default արժեքին։ Սա պետք ա գալիս, երբ քո լոկալ server-ը աշխատում ա ուրիշ port-ի վրա։
 
 ```sh
 sovorem config base_url http://localhost:8080/
@@ -96,11 +96,11 @@ sovorem config base_url
 sovorem config base_url --reset
 ```
 
-Include the protocol scheme (`http://` or `https://`) in the URL.
+URL-ի մեջ ներառիր նաև protocol scheme-ը (`http://` կամ `https://`)։
 
-### CLI colors
+### CLI colors (CLI-ի գույները)
 
-Customize terminal output colors (success, error, secondary text):
+Կարող ես սահմանել քո նախընտրած գույները terminal-ի output-ի համար (հաջողված, սխալ, լրացուցիչ տեքստ).
 
 ```sh
 sovorem config colors --red VALUE --green VALUE --gray VALUE
@@ -108,35 +108,35 @@ sovorem config colors
 sovorem config colors --reset
 ```
 
-Use an [ANSI color code](https://en.wikipedia.org/wiki/ANSI_escape_code#8-bit) or hex string as `VALUE`.
+Որպես `VALUE` օգտագործիր [ANSI color code](https://en.wikipedia.org/wiki/ANSI_escape_code#8-bit) կամ hex տող։
 
-### Troubleshooting the Config
+### Config-ի խնդիրների լուծում (Troubleshooting)
 
-To reset configuration completely, delete your config file. The CLI will recreate a fresh one on next run. Then run `sovorem login` again.
+Configuration-ը ամբողջությամբ reset անելու համար ջնջիր config ֆայլը։ CLI-ն հաջորդ run-ի ժամանակ ավտոմատ կստեղծի նոր ու թարմ ֆայլ։ Դրանից հետո նորից run արա `sovorem login`։
 
-## Upgrading
+## Upgrading (Update անելը)
 
-The CLI checks for updates on login and before running authenticated commands.
+CLI-ն ստուգում ա update-ների առկայությունը login լինելիս և մինչև login պահանջող command-եր run անելը։
 
 ```sh
 sovorem upgrade
 ```
 
-Or install a specific version:
+Կամ կարող ես տեղադրել կոնկրետ version.
 
 ```sh
 go install github.com/sovorem/sovorem@v0.1.0
 ```
 
-### Troubleshooting Upgrading
+### Update-ի խնդիրների լուծում (Troubleshooting)
 
-**Bypass the proxy** if you keep seeing the same upgrade message:
+**Bypass արա proxy-ն**, եթե անընդհատ տեսնում ես նույն upgrade message-ը.
 
 ```sh
 GOPROXY=direct go install github.com/sovorem/sovorem@latest
 ```
 
-**Reinstall** if that doesn't work:
+**Նորից տեղադրիր (Reinstall)**, եթե դա չօգնեց.
 
 ```sh
 rm "$(which sovorem)"
@@ -144,7 +144,7 @@ go install github.com/sovorem/sovorem@latest
 sovorem login
 ```
 
-## Development
+## Development (Մշակում)
 
 ```sh
 git clone https://github.com/sovorem/sovorem.git
@@ -153,6 +153,6 @@ go test ./...
 go build -o sovorem .
 ```
 
-## License
+## License (Լիցենզիա)
 
-See [LICENSE](LICENSE).
+Տես [LICENSE](LICENSE)-ը։

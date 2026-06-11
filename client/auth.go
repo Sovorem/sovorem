@@ -39,7 +39,7 @@ func FetchAccessToken() (*LoginResponse, error) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != 200 {
-		return nil, errors.New("invalid refresh token")
+		return nil, errors.New("անվավեր refresh token")
 	}
 
 	body, err := io.ReadAll(resp.Body)
@@ -66,7 +66,7 @@ func LoginWithCode(code string) (*LoginResponse, error) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode == 403 {
-		return nil, errors.New("invalid login code; please refresh your browser and try again")
+		return nil, errors.New("սխալ login code. refresh արա browser-դ ու նորից փորձիր")
 	}
 
 	if resp.StatusCode != 200 {
@@ -108,7 +108,7 @@ func fetchWithAuth(method string, url string) ([]byte, error) {
 		return nil, err
 	}
 	if code == 402 {
-		return nil, fmt.Errorf("to run and submit the tests for this lesson, you must have an active Sovorem.am membership\nhttps://sovorem.am/pricing")
+		return nil, fmt.Errorf("էս դասի test-երը run և submit անելու համար պետք ա ունենաս ակտիվ Sovorem.am membership\nhttps://sovorem.am/pricing")
 	}
 	if code != 200 {
 		return nil, fmt.Errorf("failed to %s to %s\nResponse: %d %s", method, url, code, string(body))

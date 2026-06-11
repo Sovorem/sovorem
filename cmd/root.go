@@ -19,9 +19,9 @@ var cfgFile string
 
 var rootCmd = &cobra.Command{
 	Use:   "sovorem",
-	Short: "Official Sovorem.am CLI",
-	Long: `The official CLI for Sovorem.am. This program is meant
-as a companion app (not a replacement) for the website.`,
+	Short: "Sovorem.am-ի պաշտոնական CLI",
+	Long: `Sovorem.am-ի պաշտոնական CLI-ը։ Էս ծրագիրը նախատեսված ա
+որպես կայքի օգնական app (ոչ թե փոխարինող)։`,
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
@@ -36,7 +36,7 @@ func Execute(currentVersion string) error {
 
 func init() {
 	cobra.OnInitialize(initConfig)
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default $HOME/.sovorem.yaml or $XDG_CONFIG_HOME/sovorem/config.yaml)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config ֆայլ (default-ը $HOME/.sovorem.yaml կամ $XDG_CONFIG_HOME/sovorem/config.yaml)")
 }
 
 func readViperConfig(paths []string) error {
@@ -119,9 +119,9 @@ func requireUpdated(cmd *cobra.Command, args []string) {
 	info := version.FromContext(cmd.Context())
 	if info == nil {
 		if !promptToContinue(
-			"WARNING: Can't get version info",
-			"Unable to check whether your sovorem CLI is up to date.",
-			"Continue anyway?",
+			"ԶԳՈՒՇԱՑՈՒՄ. Հնարավոր չի ստանալ version-ի տվյալները",
+			"Հնարավոր չեղավ ստուգել՝ արդյոք քո sovorem CLI-ը update արած ա։",
+			"Շարունակե՞նք ամեն դեպքում",
 		) {
 			os.Exit(1)
 		}
@@ -129,9 +129,9 @@ func requireUpdated(cmd *cobra.Command, args []string) {
 	}
 	if info.FailedToFetch != nil {
 		if !promptToContinue(
-			"WARNING: Can't get version info",
-			fmt.Sprintf("Unable to check whether your sovorem CLI is up to date: %s", info.FailedToFetch.Error()),
-			"Continue anyway?",
+			"ԶԳՈՒՇԱՑՈՒՄ. Հնարավոր չի ստանալ version-ի տվյալները",
+			fmt.Sprintf("Հնարավոր չեղավ ստուգել՝ արդյոք քո sovorem CLI-ը update արած ա. %s", info.FailedToFetch.Error()),
+			"Շարունակե՞նք ամեն դեպքում",
 		) {
 			os.Exit(1)
 		}
@@ -166,8 +166,8 @@ func promptToContinue(title string, message string, prompt string) bool {
 func requireAuth(cmd *cobra.Command, args []string) {
 	promptLoginAndExitIf := func(condition bool) {
 		if condition {
-			fmt.Fprintln(os.Stderr, "You must be logged in to use that command.")
-			fmt.Fprintln(os.Stderr, "Please run 'sovorem login' first.")
+			fmt.Fprintln(os.Stderr, "Էս command-ը run անելու համար պետք ա login եղած լինես։")
+			fmt.Fprintln(os.Stderr, "Արի սկզբից 'sovorem login' run անենք։")
 			os.Exit(1)
 		}
 	}

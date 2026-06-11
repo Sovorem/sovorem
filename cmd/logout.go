@@ -22,13 +22,13 @@ func logout() {
 	viper.Set("refresh_token", "")
 	viper.Set("last_refresh", time.Now().Unix())
 	viper.WriteConfig()
-	fmt.Println("Logged out successfully.")
+	fmt.Println("Հաջողությամբ logout եղար։")
 }
 
 var logoutCmd = &cobra.Command{
 	Use:          "logout",
 	Aliases:      []string{"signout"},
-	Short:        "Disconnect the CLI from your account",
+	Short:        "Logout լինել CLI-ից",
 	PreRun:       requireAuth,
 	SilenceUsage: true,
 	RunE: func(cmd *cobra.Command, args []string) error {

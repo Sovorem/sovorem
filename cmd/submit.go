@@ -24,14 +24,14 @@ var (
 
 func init() {
 	rootCmd.AddCommand(submitCmd)
-	submitCmd.Flags().BoolVar(&debugSubmission, "debug", false, "log submission request/response debug output")
+	submitCmd.Flags().BoolVar(&debugSubmission, "debug", false, "log անել submission-ի request/response debug output-ը")
 }
 
 // submitCmd represents the submit command
 var submitCmd = &cobra.Command{
 	Use:    "submit UUID",
 	Args:   cobra.MatchAll(cobra.RangeArgs(1, 10)),
-	Short:  "Submit a lesson",
+	Short:  "Submit անել դասը",
 	PreRun: compose(requireUpdated, requireAuth),
 	RunE:   submissionHandler,
 }
@@ -46,10 +46,10 @@ func submissionHandler(cmd *cobra.Command, args []string) error {
 		return err
 	}
 	if lesson.Lesson.Type != "type_cli" {
-		return errors.New("unable to run lesson: unsupported lesson type")
+		return errors.New("հնարավոր չի run անել դասը. չաջակցվող դասի տիպ")
 	}
 	if lesson.Lesson.LessonDataCLI == nil {
-		return errors.New("unable to run lesson: missing lesson data")
+		return errors.New("հնարավոր չի run անել դասը. դասի տվյալները բացակայում են")
 	}
 
 	data := lesson.Lesson.LessonDataCLI.CLIData
@@ -62,13 +62,13 @@ func submissionHandler(cmd *cobra.Command, args []string) error {
 	}
 
 	if !isAllowedOS {
-		return fmt.Errorf("lesson is not supported for your operating system (%s); try again with one of the following: %v", runtime.GOOS, data.AllowedOperatingSystems)
+		return fmt.Errorf("դասը չի աջակցվում քո օպերացիոն համակարգի կողմից (%s), նորից փորձիր սրանցից մեկով. %v", runtime.GOOS, data.AllowedOperatingSystems)
 	}
 
 	overrideBaseURL := viper.GetString("override_base_url")
 	if overrideBaseURL != "" {
-		fmt.Printf("Using overridden base_url: %v\n", overrideBaseURL)
-		fmt.Printf("You can reset to the default with `sovorem config base_url --reset`\n\n")
+		fmt.Printf("Օգտագործվում ա override արած base_url-ը. %v\n", overrideBaseURL)
+		fmt.Printf("Default-ին կարող ես վերադառնալ `sovorem config base_url --reset` run անելով\n\n")
 	}
 
 	ch := make(chan tea.Msg, 1)
@@ -100,10 +100,10 @@ func submissionHandler(cmd *cobra.Command, args []string) error {
 
 func reportDebugFileWrite(path string, err error) {
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "warning: failed to write submission debug output: %v\n", err)
+		fmt.Fprintf(os.Stderr, "զգուշացում. չհաջողվեց գրել submission-ի debug output-ը. %v\n", err)
 		return
 	}
-	fmt.Fprintf(os.Stderr, "Submission debug output written to %s\n", path)
+	fmt.Fprintf(os.Stderr, "Submission-ի debug output-ը գրվեց %s ֆայլում\n", path)
 }
 
 func writeSubmissionDebugFile(lessonUUID string, data api.SubmissionDebugData) (string, error) {

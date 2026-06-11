@@ -41,8 +41,8 @@ func localTestHandler(cmd *cobra.Command, args []string) error {
 
 	overrideBaseURL := viper.GetString("override_base_url")
 	if overrideBaseURL != "" {
-		fmt.Printf("Using overridden base_url: %v\n", overrideBaseURL)
-		fmt.Printf("You can reset to the default with `sovorem config base_url --reset`\n\n")
+		fmt.Printf("Օգտագործվում ա override արած base_url-ը. %v\n", overrideBaseURL)
+		fmt.Printf("Default-ին կարող ես վերադառնալ `sovorem config base_url --reset` run անելով\n\n")
 	}
 
 	ch := make(chan tea.Msg, 1)
@@ -62,10 +62,10 @@ func localTestHandler(cmd *cobra.Command, args []string) error {
 
 func localTestFailureError(failure *api.StructuredErrCLI) error {
 	if failure == nil {
-		return errors.New("local checks failed")
+		return errors.New("լոկալ test-երը չանցան")
 	}
 	return fmt.Errorf(
-		"local checks failed: step %d, test %d\n%s",
+		"լոկալ test-երը չանցան. step %d, test %d\n%s",
 		failure.FailedStepIndex+1,
 		failure.FailedTestIndex+1,
 		failure.ErrorMessage,
@@ -92,7 +92,7 @@ func readLocalCLIData(path string) (api.CLIData, error) {
 		return api.CLIData{}, err
 	}
 	if len(data.Steps) == 0 {
-		return api.CLIData{}, errors.New("test manifest should include at least one step")
+		return api.CLIData{}, errors.New("test manifest-ը պետք ա առնվազն մեկ step ներառի")
 	}
 
 	return data, nil
@@ -108,7 +108,7 @@ func validateAllowedOS(data api.CLIData) error {
 	}
 
 	return fmt.Errorf(
-		"lesson is not supported for your operating system (%s)\ntry again with one of the following: %v",
+		"դասը չի աջակցվում քո օպերացիոն համակարգի կողմից (%s)\nնորից փորձիր սրանցից մեկով. %v",
 		runtime.GOOS,
 		data.AllowedOperatingSystems,
 	)
