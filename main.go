@@ -6,7 +6,7 @@ import (
 
 	_ "embed"
 
-	"github.com/Sovorem/sovorem-cli/cmd"
+	"github.com/Sovorem/sovorem/cmd"
 )
 
 //go:embed version.txt

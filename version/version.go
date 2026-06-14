@@ -16,9 +16,9 @@ import (
 
 // modulePath is the canonical Go module path. It must match the `module`
 // directive in go.mod and the capitalization of the GitHub repository
-// (github.com/Sovorem/sovorem-cli): the Go module proxy and GOPROXY=direct
+// (github.com/Sovorem/sovorem): the Go module proxy and GOPROXY=direct
 // both treat module paths case-sensitively.
-const modulePath = "github.com/Sovorem/sovorem-cli"
+const modulePath = "github.com/Sovorem/sovorem"
 
 type VersionInfo struct {
 	CurrentVersion   string
@@ -51,7 +51,7 @@ func (v *VersionInfo) PromptUpdateIfAvailable() {
 		fmt.Fprintln(os.Stderr, "CLI-ը update անելու համար run արա էս command-ը.")
 		fmt.Fprintln(os.Stderr, "  sovorem upgrade")
 		fmt.Fprintln(os.Stderr, "կամ")
-		fmt.Fprintf(os.Stderr, "  go install github.com/Sovorem/sovorem-cli@%s\n\n", v.LatestVersion)
+		fmt.Fprintf(os.Stderr, "  go install github.com/Sovorem/sovorem@%s\n\n", v.LatestVersion)
 	}
 }
 

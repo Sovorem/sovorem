@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	api "github.com/Sovorem/sovorem-cli/client"
+	api "github.com/Sovorem/sovorem/client"
 )
 
 func TestHTTPVariableSections(t *testing.T) {

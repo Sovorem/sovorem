@@ -1,7 +1,7 @@
 package render
 
 import (
-	api "github.com/Sovorem/sovorem-cli/client"
+	api "github.com/Sovorem/sovorem/client"
 	"github.com/charmbracelet/bubbles/spinner"
 )
 

@@ -12,7 +12,7 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	api "github.com/Sovorem/sovorem-cli/client"
+	api "github.com/Sovorem/sovorem/client"
 	"github.com/goccy/go-json"
 	"github.com/spf13/cobra"
 )
