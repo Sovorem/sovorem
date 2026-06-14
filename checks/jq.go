@@ -6,9 +6,9 @@ import (
 	"io"
 	"strings"
 
-	api "github.com/sovorem/sovorem/client"
 	"github.com/goccy/go-json"
 	"github.com/itchyny/gojq"
+	api "github.com/sovorem/sovorem/client"
 )
 
 func prettyPrintStdoutJqTest(test api.StdoutJqTest, variables map[string]string) string {

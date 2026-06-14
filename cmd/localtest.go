@@ -8,10 +8,10 @@ import (
 	"runtime"
 	"slices"
 
+	tea "github.com/charmbracelet/bubbletea"
 	"github.com/sovorem/sovorem/checks"
 	api "github.com/sovorem/sovorem/client"
 	"github.com/sovorem/sovorem/render"
-	tea "github.com/charmbracelet/bubbletea"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"go.yaml.in/yaml/v3"

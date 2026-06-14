@@ -1,8 +1,8 @@
 package render
 
 import (
-	api "github.com/sovorem/sovorem/client"
 	"github.com/charmbracelet/bubbles/spinner"
+	api "github.com/sovorem/sovorem/client"
 )
 
 type testModel struct {

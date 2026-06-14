@@ -8,9 +8,9 @@ import (
 	"runtime"
 	"time"
 
+	tea "github.com/charmbracelet/bubbletea"
 	"github.com/sovorem/sovorem/checks"
 	api "github.com/sovorem/sovorem/client"
-	tea "github.com/charmbracelet/bubbletea"
 
 	"github.com/sovorem/sovorem/render"
 	"github.com/spf13/cobra"

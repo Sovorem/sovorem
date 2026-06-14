@@ -1,0 +1,15 @@
+# Normalize line endings. Text files are stored with LF in the repository and
+# checked out with LF on every platform, so Windows checkouts stop showing the
+# whole tree as "modified". Binary files are detected by `text=auto` and left
+# untouched; the explicit lines below are a safety net for assets added later.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.otf binary
+*.ttf binary
+*.woff binary
+*.woff2 binary

@@ -5,11 +5,11 @@ import (
 	"os"
 	"sync"
 
-	api "github.com/sovorem/sovorem/client"
-	"github.com/sovorem/sovorem/messages"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 	"github.com/muesli/termenv"
+	api "github.com/sovorem/sovorem/client"
+	"github.com/sovorem/sovorem/messages"
 	"github.com/spf13/viper"
 )
 

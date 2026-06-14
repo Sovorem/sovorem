@@ -5,9 +5,9 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/goccy/go-json"
 	"github.com/sovorem/sovorem/checks"
 	api "github.com/sovorem/sovorem/client"
-	"github.com/goccy/go-json"
 )
 
 type variableEntry struct {
