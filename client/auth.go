@@ -11,20 +11,12 @@ import (
 	"github.com/spf13/viper"
 )
 
-type LoginRequest struct {
-	Otp string `json:"otp"`
-}
+// Request/response shapes (OtpLoginRequest, CliTokens, CurrentUser, …) are
+// GENERATED from the OpenAPI contract into v1gen.go — the single source of
+// truth shared with the web backend. Do not hand-declare them here; edit
+// v1.openapi.yaml and run `go generate ./...` instead.
 
-type LoginResponse struct {
-	AccessToken  string `json:"access_token"`
-	RefreshToken string `json:"refresh_token"`
-}
-
-type CurrentUserResponse struct {
-	Handle string `json:"handle"`
-}
-
-func FetchAccessToken() (*LoginResponse, error) {
+func FetchAccessToken() (*CliTokens, error) {
 	apiURL := APIBaseURL()
 	client := &http.Client{}
 	r, err := http.NewRequest("POST", apiURL+"/v1/auth/refresh", bytes.NewBuffer([]byte{}))
@@ -47,14 +39,14 @@ func FetchAccessToken() (*LoginResponse, error) {
 		return nil, err
 	}
 
-	var creds LoginResponse
+	var creds CliTokens
 	err = json.Unmarshal(body, &creds)
 	return &creds, err
 }
 
-func LoginWithCode(code string) (*LoginResponse, error) {
+func LoginWithCode(code string) (*CliTokens, error) {
 	apiURL := APIBaseURL()
-	req, err := json.Marshal(LoginRequest{Otp: code})
+	req, err := json.Marshal(OtpLoginRequest{Otp: code})
 	if err != nil {
 		return nil, err
 	}
@@ -65,7 +57,7 @@ func LoginWithCode(code string) (*LoginResponse, error) {
 	}
 	defer resp.Body.Close()
 
-	if resp.StatusCode == 403 {
+	if resp.StatusCode == 401 {
 		return nil, errors.New("սխալ login code. refresh արա browser-դ ու նորից փորձիր")
 	}
 
@@ -78,7 +70,7 @@ func LoginWithCode(code string) (*LoginResponse, error) {
 		return nil, err
 	}
 
-	var creds LoginResponse
+	var creds CliTokens
 	err = json.Unmarshal(body, &creds)
 	if err != nil {
 		return nil, err
@@ -87,13 +79,13 @@ func LoginWithCode(code string) (*LoginResponse, error) {
 	return &creds, nil
 }
 
-func FetchCurrentUser() (*CurrentUserResponse, error) {
+func FetchCurrentUser() (*CurrentUser, error) {
 	body, err := fetchWithAuth("GET", "/v1/users/me")
 	if err != nil {
 		return nil, err
 	}
 
-	var user CurrentUserResponse
+	var user CurrentUser
 	err = json.Unmarshal(body, &user)
 	if err != nil {
 		return nil, err

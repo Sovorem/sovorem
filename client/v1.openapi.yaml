@@ -1,0 +1,146 @@
+openapi: 3.0.3
+info:
+  title: Sovorem CLI API (/v1)
+  version: 1.0.0
+  description: >
+    The contract between the Sovorem web backend (the /v1/* route handlers) and
+    the sovorem CLI. This file is the SINGLE SOURCE OF TRUTH for the wire shapes:
+    the server's TypeScript types and the CLI's Go types are both generated from
+    it, so the two codebases cannot disagree on field names or casing.
+servers:
+  - url: https://sovorem.am
+
+paths:
+  /v1/auth/otp/login:
+    post:
+      operationId: otpLogin
+      summary: Exchange a one-time pairing code (from /cli/login) for CLI tokens.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OtpLoginRequest"
+      responses:
+        "200":
+          description: Tokens issued.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CliTokens"
+        "400":
+          $ref: "#/components/responses/Error"
+        "401":
+          $ref: "#/components/responses/Error"
+
+  /v1/auth/refresh:
+    post:
+      operationId: refreshTokens
+      summary: Rotate the CLI access/refresh token pair.
+      parameters:
+        - $ref: "#/components/parameters/RefreshTokenHeader"
+      responses:
+        "200":
+          description: A new token pair (the old one is revoked).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CliTokens"
+        "401":
+          $ref: "#/components/responses/Error"
+
+  /v1/auth/logout:
+    post:
+      operationId: logout
+      summary: Revoke the CLI refresh token. Always succeeds.
+      parameters:
+        - $ref: "#/components/parameters/RefreshTokenHeader"
+      responses:
+        "200":
+          description: Acknowledged.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LogoutResponse"
+
+  /v1/users/me:
+    get:
+      operationId: currentUser
+      summary: The authenticated CLI user's handle.
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: The current user.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CurrentUser"
+        "401":
+          $ref: "#/components/responses/Error"
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+
+  parameters:
+    RefreshTokenHeader:
+      name: X-Refresh-Token
+      in: header
+      required: true
+      schema:
+        type: string
+
+  responses:
+    Error:
+      description: An error response.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+  schemas:
+    OtpLoginRequest:
+      type: object
+      additionalProperties: false
+      required: [Otp]
+      properties:
+        Otp:
+          type: string
+          description: One-time pairing code displayed at /cli/login.
+
+    CliTokens:
+      type: object
+      additionalProperties: false
+      required: [AccessToken, RefreshToken]
+      properties:
+        AccessToken:
+          type: string
+        RefreshToken:
+          type: string
+
+    CurrentUser:
+      type: object
+      additionalProperties: false
+      required: [Handle]
+      properties:
+        Handle:
+          type: string
+
+    LogoutResponse:
+      type: object
+      additionalProperties: false
+      required: [ok]
+      properties:
+        ok:
+          type: boolean
+
+    Error:
+      type: object
+      additionalProperties: false
+      required: [Error]
+      properties:
+        Error:
+          type: string
