@@ -9,8 +9,8 @@ import (
 	"strings"
 	"time"
 
-	api "github.com/Sovorem/sovorem-cli/client"
-	"github.com/Sovorem/sovorem-cli/version"
+	api "github.com/Sovorem/sovorem/client"
+	"github.com/Sovorem/sovorem/version"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )

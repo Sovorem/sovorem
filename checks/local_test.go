@@ -3,7 +3,7 @@ package checks
 import (
 	"testing"
 
-	api "github.com/Sovorem/sovorem-cli/client"
+	api "github.com/Sovorem/sovorem/client"
 )
 
 func TestLocalSubmissionEventPassesCLIAndHTTPResults(t *testing.T) {

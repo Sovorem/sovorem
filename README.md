@@ -38,7 +38,7 @@ Go-ն տեղադրելուց հետո բացիր նոր terminal-ի պատուհ
 ### 2. Install the Sovorem CLI (Տեղադրել Sovorem CLI-ը)
 
 ```sh
-go install github.com/Sovorem/sovorem-cli@latest
+go install github.com/Sovorem/sovorem@latest
 ```
 
 Run արա `sovorem --version`՝ տեղադրումը ստուգելու համար։
@@ -145,7 +145,7 @@ sovorem upgrade
 Կամ կարող ես տեղադրել կոնկրետ version.
 
 ```sh
-go install github.com/Sovorem/sovorem-cli@v0.1.0
+go install github.com/Sovorem/sovorem@v0.1.0
 ```
 
 ### Update-ի խնդիրների լուծում (Troubleshooting)
@@ -153,22 +153,22 @@ go install github.com/Sovorem/sovorem-cli@v0.1.0
 **Bypass արա proxy-ն**, եթե անընդհատ տեսնում ես նույն upgrade message-ը.
 
 ```sh
-GOPROXY=direct go install github.com/Sovorem/sovorem-cli@latest
+GOPROXY=direct go install github.com/Sovorem/sovorem@latest
 ```
 
 **Նորից տեղադրիր (Reinstall)**, եթե դա չօգնեց.
 
 ```sh
 rm "$(which sovorem)"
-go install github.com/Sovorem/sovorem-cli@latest
+go install github.com/Sovorem/sovorem@latest
 sovorem login
 ```
 
 ## Development (Մշակում)
 
 ```sh
-git clone https://github.com/Sovorem/sovorem-cli.git
-cd sovorem-cli
+git clone https://github.com/Sovorem/sovorem.git
+cd sovorem
 go test ./...
 go build -o sovorem .
 ```

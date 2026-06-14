@@ -6,7 +6,7 @@ import (
 	"io"
 	"strings"
 
-	api "github.com/Sovorem/sovorem-cli/client"
+	api "github.com/Sovorem/sovorem/client"
 	"github.com/goccy/go-json"
 	"github.com/itchyny/gojq"
 )

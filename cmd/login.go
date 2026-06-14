@@ -11,7 +11,7 @@ import (
 	"regexp"
 	"time"
 
-	api "github.com/Sovorem/sovorem-cli/client"
+	api "github.com/Sovorem/sovorem/client"
 	"github.com/charmbracelet/lipgloss"
 	"github.com/pkg/browser"
 	"github.com/spf13/cobra"

@@ -8,11 +8,11 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/Sovorem/sovorem-cli/checks"
-	api "github.com/Sovorem/sovorem-cli/client"
+	"github.com/Sovorem/sovorem/checks"
+	api "github.com/Sovorem/sovorem/client"
 	tea "github.com/charmbracelet/bubbletea"
 
-	"github.com/Sovorem/sovorem-cli/render"
+	"github.com/Sovorem/sovorem/render"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )

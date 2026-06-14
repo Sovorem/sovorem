@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/Sovorem/sovorem-cli/checks"
-	api "github.com/Sovorem/sovorem-cli/client"
+	"github.com/Sovorem/sovorem/checks"
+	api "github.com/Sovorem/sovorem/client"
 	"github.com/goccy/go-json"
 )
 
