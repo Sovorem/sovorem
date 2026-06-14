@@ -1,6 +1,6 @@
 package messages
 
-import api "github.com/sovorem/sovorem/client"
+import api "github.com/Sovorem/sovorem-cli/client"
 
 type StartStepMsg struct {
 	CMD             string

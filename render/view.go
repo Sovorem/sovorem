@@ -6,9 +6,9 @@ import (
 	"time"
 	"unicode/utf8"
 
+	api "github.com/Sovorem/sovorem-cli/client"
 	"github.com/charmbracelet/bubbles/spinner"
 	"github.com/charmbracelet/lipgloss"
-	api "github.com/sovorem/sovorem/client"
 )
 
 const safeStepIcon = "🛡︎"

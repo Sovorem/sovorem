@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"time"
 
-	api "github.com/sovorem/sovorem/client"
+	api "github.com/Sovorem/sovorem-cli/client"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )

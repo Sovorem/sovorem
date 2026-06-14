@@ -8,7 +8,7 @@ import (
 	"runtime"
 	"strings"
 
-	api "github.com/sovorem/sovorem/client"
+	api "github.com/Sovorem/sovorem-cli/client"
 )
 
 func runCLICommand(command api.CLIStepCLICommand, variables map[string]string) (result api.CLICommandResult) {

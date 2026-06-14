@@ -10,13 +10,15 @@ import (
 	"strings"
 
 	"github.com/goccy/go-json"
+	"golang.org/x/mod/module"
 	"golang.org/x/mod/semver"
 )
 
-const (
-	repoOwner = "sovorem"
-	repoName  = "sovorem"
-)
+// modulePath is the canonical Go module path. It must match the `module`
+// directive in go.mod and the capitalization of the GitHub repository
+// (github.com/Sovorem/sovorem-cli): the Go module proxy and GOPROXY=direct
+// both treat module paths case-sensitively.
+const modulePath = "github.com/Sovorem/sovorem-cli"
 
 type VersionInfo struct {
 	CurrentVersion   string
@@ -49,7 +51,7 @@ func (v *VersionInfo) PromptUpdateIfAvailable() {
 		fmt.Fprintln(os.Stderr, "CLI-ը update անելու համար run արա էս command-ը.")
 		fmt.Fprintln(os.Stderr, "  sovorem upgrade")
 		fmt.Fprintln(os.Stderr, "կամ")
-		fmt.Fprintf(os.Stderr, "  go install github.com/sovorem/sovorem@%s\n\n", v.LatestVersion)
+		fmt.Fprintf(os.Stderr, "  go install github.com/Sovorem/sovorem-cli@%s\n\n", v.LatestVersion)
 	}
 }
 
@@ -68,6 +70,11 @@ func isUpdateRequired(current string, latest string) bool {
 }
 
 func getLatestVersion() (string, error) {
+	escapedPath, err := module.EscapePath(modulePath)
+	if err != nil {
+		return "", fmt.Errorf("invalid module path %q: %w", modulePath, err)
+	}
+
 	goproxyDefault := "https://proxy.golang.org"
 	goproxy := goproxyDefault
 	cmd := exec.Command("go", "env", "GOPROXY")
@@ -88,7 +95,7 @@ func getLatestVersion() (string, error) {
 			continue
 		}
 
-		url := fmt.Sprintf("%s/github.com/%s/%s/@latest", proxy, repoOwner, repoName)
+		url := fmt.Sprintf("%s/%s/@latest", proxy, escapedPath)
 		resp, err := http.Get(url)
 		if err != nil {
 			continue

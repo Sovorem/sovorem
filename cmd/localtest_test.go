@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	api "github.com/sovorem/sovorem/client"
+	api "github.com/Sovorem/sovorem-cli/client"
 )
 
 func TestReadLocalCLIDataAcceptsLessonDirectory(t *testing.T) {

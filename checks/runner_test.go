@@ -3,9 +3,9 @@ package checks
 import (
 	"testing"
 
+	api "github.com/Sovorem/sovorem-cli/client"
+	"github.com/Sovorem/sovorem-cli/messages"
 	tea "github.com/charmbracelet/bubbletea"
-	api "github.com/sovorem/sovorem/client"
-	"github.com/sovorem/sovorem/messages"
 )
 
 func TestApplySubmissionResultsMarksAllStepsAndTestsPassedWhenNoFailure(t *testing.T) {
