@@ -6,12 +6,13 @@ import (
 	"net/http"
 	"time"
 
+	api "github.com/sovorem/sovorem/client"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
 
 func logout() {
-	apiURL := viper.GetString("api_url")
+	apiURL := api.APIBaseURL()
 	client := &http.Client{}
 	// Best effort - logout should never fail
 	r, _ := http.NewRequest("POST", apiURL+"/v1/auth/logout", bytes.NewBuffer([]byte{}))

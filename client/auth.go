@@ -25,7 +25,7 @@ type CurrentUserResponse struct {
 }
 
 func FetchAccessToken() (*LoginResponse, error) {
-	apiURL := viper.GetString("api_url")
+	apiURL := APIBaseURL()
 	client := &http.Client{}
 	r, err := http.NewRequest("POST", apiURL+"/v1/auth/refresh", bytes.NewBuffer([]byte{}))
 	if err != nil {
@@ -53,7 +53,7 @@ func FetchAccessToken() (*LoginResponse, error) {
 }
 
 func LoginWithCode(code string) (*LoginResponse, error) {
-	apiURL := viper.GetString("api_url")
+	apiURL := APIBaseURL()
 	req, err := json.Marshal(LoginRequest{Otp: code})
 	if err != nil {
 		return nil, err
@@ -117,7 +117,7 @@ func fetchWithAuth(method string, url string) ([]byte, error) {
 }
 
 func fetchWithAuthAndPayload(method string, url string, payload []byte) ([]byte, int, error) {
-	apiURL := viper.GetString("api_url")
+	apiURL := APIBaseURL()
 	client := &http.Client{}
 	r, err := http.NewRequest(method, apiURL+url, bytes.NewBuffer(payload))
 	if err != nil {

@@ -15,7 +15,10 @@ import (
 	"github.com/spf13/viper"
 )
 
-var cfgFile string
+var (
+	cfgFile        string
+	apiURLOverride string
+)
 
 var rootCmd = &cobra.Command{
 	Use:   "sovorem",
@@ -37,6 +40,7 @@ func Execute(currentVersion string) error {
 func init() {
 	cobra.OnInitialize(initConfig)
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config ֆայլ (default-ը $HOME/.sovorem.yaml կամ $XDG_CONFIG_HOME/sovorem/config.yaml)")
+	rootCmd.PersistentFlags().StringVar(&apiURLOverride, "api-url", "", "Sovorem-ի base URL-ը override անել միայն տվյալ command-ի համար, օր․ http://localhost:3000 (չի պահվում config-ում)")
 }
 
 func readViperConfig(paths []string) error {
@@ -51,8 +55,10 @@ func readViperConfig(paths []string) error {
 
 // initConfig reads in config file and ENV variables if set.
 func initConfig() {
-	viper.SetDefault("frontend_url", "https://sovorem.am")
-	viper.SetDefault("api_url", "https://api.sovorem.am")
+	// The API/login base URL is environment config, not user data: it lives in
+	// the binary (api.DefaultBaseURL) and is overridable via --api-url /
+	// SOVOREM_API_URL. It is intentionally NOT a viper default, so it is never
+	// written into the user's config file where a stale value could shadow it.
 	viper.SetDefault("access_token", "")
 	viper.SetDefault("refresh_token", "")
 	viper.SetDefault("last_refresh", 0)
@@ -100,8 +106,17 @@ func initConfig() {
 		}
 	}
 
+	// Drop endpoint keys that older CLI versions persisted into the config file,
+	// so a saved value can't shadow the binary default after an upgrade.
+	migrateConfig()
+
 	viper.SetEnvPrefix("sovorem")
 	viper.AutomaticEnv() // read in environment variables that match
+
+	// --api-url overrides both the API endpoint and the browser login URL for
+	// this invocation only (handy for pointing the CLI at a local or staging
+	// server). It is never written to the config file.
+	cobra.CheckErr(api.SetBaseOverride(apiURLOverride))
 }
 
 // Chain multiple commands together.

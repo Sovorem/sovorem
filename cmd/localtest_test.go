@@ -48,7 +48,7 @@ func TestLocalTestFailureErrorIncludesStructuredContext(t *testing.T) {
 		FailedTestIndex: 2,
 	})
 
-	want := "local checks failed: step 2, test 3\nexpected stdout to contain \"hello\""
+	want := "լոկալ test-երը չանցան. step 2, test 3\nexpected stdout to contain \"hello\""
 	if err == nil || err.Error() != want {
 		t.Fatalf("localTestFailureError() = %v, want %q", err, want)
 	}

@@ -47,7 +47,7 @@ var loginCmd = &cobra.Command{
 			fmt.Print("Բարի գալուստ Sovorem.am CLI!\n\n")
 		}
 
-		loginURL := viper.GetString("frontend_url") + "/cli/login"
+		loginURL := api.FrontendBaseURL() + "/cli/login"
 
 		fmt.Println("Անցիր էս հղումով.\n" + loginURL)
 
@@ -123,7 +123,7 @@ func startHTTPServer(inputChan chan string) {
 	}
 
 	handleRedirect := func(w http.ResponseWriter, r *http.Request) {
-		loginURL := viper.GetString("frontend_url") + "/cli/login"
+		loginURL := api.FrontendBaseURL() + "/cli/login"
 		http.Redirect(w, r, loginURL, http.StatusSeeOther)
 	}
 
