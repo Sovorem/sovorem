@@ -33,4 +33,13 @@ jobs:
       - name: Vet
         run: go vet ./...
 
+      - name: Check generated code is up to date
+        run: |
+          go generate ./...
+          if ! git diff --quiet; then
+            echo "Generated code is stale. Edit the spec and run 'go generate ./...', then commit:"
+            git --no-pager diff --stat
+            exit 1
+          fi
+
       - run: go test ./...
