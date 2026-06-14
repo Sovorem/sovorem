@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	api "github.com/sovorem/sovorem/client"
+	api "github.com/Sovorem/sovorem-cli/client"
 )
 
 func LocalSubmissionEvent(cliData api.CLIData, results []api.CLIStepResult) api.LessonSubmissionEvent {

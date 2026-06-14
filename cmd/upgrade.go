@@ -6,7 +6,7 @@ import (
 	"os/exec"
 	"regexp"
 
-	"github.com/sovorem/sovorem/version"
+	"github.com/Sovorem/sovorem-cli/version"
 	"github.com/spf13/cobra"
 )
 
@@ -23,7 +23,7 @@ var upgradeCmd = &cobra.Command{
 
 		fmt.Println("Update ենք անում Sovorem.am CLI-ը...")
 
-		command := exec.Command("go", "install", "github.com/sovorem/sovorem@latest")
+		command := exec.Command("go", "install", "github.com/Sovorem/sovorem-cli@latest")
 		command.Stdout = os.Stdout
 		command.Stderr = os.Stderr
 		err := command.Run()

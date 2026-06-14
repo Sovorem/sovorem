@@ -5,9 +5,9 @@ import (
 	"strings"
 	"time"
 
+	api "github.com/Sovorem/sovorem-cli/client"
+	"github.com/Sovorem/sovorem-cli/messages"
 	tea "github.com/charmbracelet/bubbletea"
-	api "github.com/sovorem/sovorem/client"
-	"github.com/sovorem/sovorem/messages"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )

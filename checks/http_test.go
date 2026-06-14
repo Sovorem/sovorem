@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	api "github.com/sovorem/sovorem/client"
+	api "github.com/Sovorem/sovorem-cli/client"
 )
 
 func TestInterpolateVariables(t *testing.T) {

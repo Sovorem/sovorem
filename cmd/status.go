@@ -3,8 +3,8 @@ package cmd
 import (
 	"fmt"
 
-	api "github.com/sovorem/sovorem/client"
-	"github.com/sovorem/sovorem/version"
+	api "github.com/Sovorem/sovorem-cli/client"
+	"github.com/Sovorem/sovorem-cli/version"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )

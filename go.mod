@@ -1,4 +1,4 @@
-module github.com/sovorem/sovorem
+module github.com/Sovorem/sovorem-cli
 
 go 1.24.2
 
