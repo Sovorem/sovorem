@@ -5,9 +5,9 @@ import (
 	"strings"
 	"time"
 
+	tea "github.com/charmbracelet/bubbletea"
 	api "github.com/sovorem/sovorem/client"
 	"github.com/sovorem/sovorem/messages"
-	tea "github.com/charmbracelet/bubbletea"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )

@@ -11,9 +11,9 @@ import (
 	"regexp"
 	"time"
 
-	api "github.com/sovorem/sovorem/client"
 	"github.com/charmbracelet/lipgloss"
 	"github.com/pkg/browser"
+	api "github.com/sovorem/sovorem/client"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"golang.org/x/term"
