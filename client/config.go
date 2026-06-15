@@ -72,7 +72,7 @@ func NormalizeBaseURL(raw string) (string, error) {
 		return "", fmt.Errorf("անվավեր base URL %q. ներառիր և՛ scheme-ը (http/https), և՛ host-ը, օր․ http://localhost:3000", raw)
 	}
 	if u.Scheme != "http" && u.Scheme != "https" {
-		return "", fmt.Errorf("base URL-ի scheme-ը պետք ա լինի http կամ https, ոչ թե %q", u.Scheme)
+		return "", fmt.Errorf("base URL-ի scheme-ը պետք Է լինի http կամ https, ոչ թե %q", u.Scheme)
 	}
 	u.Path = strings.TrimRight(u.Path, "/")
 	u.RawQuery = ""

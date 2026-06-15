@@ -67,7 +67,7 @@ func submissionHandler(cmd *cobra.Command, args []string) error {
 
 	overrideBaseURL := viper.GetString("override_base_url")
 	if overrideBaseURL != "" {
-		fmt.Printf("Օգտագործվում ա override արած base_url-ը. %v\n", overrideBaseURL)
+		fmt.Printf("Օգտագործվում Է override արած base_url-ը. %v\n", overrideBaseURL)
 		fmt.Printf("Default-ին կարող ես վերադառնալ `sovorem config base_url --reset` run անելով\n\n")
 	}
 

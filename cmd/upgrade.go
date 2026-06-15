@@ -17,7 +17,7 @@ var upgradeCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		info := version.FromContext(cmd.Context())
 		if !info.IsOutdated {
-			fmt.Println("Sovorem.am CLI-ը արդեն update արած ա։")
+			fmt.Println("Sovorem.am CLI-ը արդեն update արած Է։")
 			return
 		}
 

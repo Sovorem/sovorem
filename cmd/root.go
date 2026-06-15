@@ -23,7 +23,7 @@ var (
 var rootCmd = &cobra.Command{
 	Use:   "sovorem",
 	Short: "Sovorem.am-ի պաշտոնական CLI",
-	Long: `Sovorem.am-ի պաշտոնական CLI-ը։ Էս ծրագիրը նախատեսված ա
+	Long: `Sovorem.am-ի պաշտոնական CLI-ը։ Էս ծրագիրը նախատեսված Է
 որպես կայքի օգնական app (ոչ թե փոխարինող)։`,
 }
 
@@ -135,7 +135,7 @@ func requireUpdated(cmd *cobra.Command, args []string) {
 	if info == nil {
 		if !promptToContinue(
 			"ԶԳՈՒՇԱՑՈՒՄ. Հնարավոր չի ստանալ version-ի տվյալները",
-			"Հնարավոր չեղավ ստուգել՝ արդյոք քո sovorem CLI-ը update արած ա։",
+			"Հնարավոր չեղավ ստուգել՝ արդյոք քո sovorem CLI-ը update արած Է։",
 			"Շարունակե՞նք ամեն դեպքում",
 		) {
 			os.Exit(1)
@@ -145,7 +145,7 @@ func requireUpdated(cmd *cobra.Command, args []string) {
 	if info.FailedToFetch != nil {
 		if !promptToContinue(
 			"ԶԳՈՒՇԱՑՈՒՄ. Հնարավոր չի ստանալ version-ի տվյալները",
-			fmt.Sprintf("Հնարավոր չեղավ ստուգել՝ արդյոք քո sovorem CLI-ը update արած ա. %s", info.FailedToFetch.Error()),
+			fmt.Sprintf("Հնարավոր չեղավ ստուգել՝ արդյոք քո sovorem CLI-ը update արած Է. %s", info.FailedToFetch.Error()),
 			"Շարունակե՞նք ամեն դեպքում",
 		) {
 			os.Exit(1)
@@ -181,7 +181,7 @@ func promptToContinue(title string, message string, prompt string) bool {
 func requireAuth(cmd *cobra.Command, args []string) {
 	promptLoginAndExitIf := func(condition bool) {
 		if condition {
-			fmt.Fprintln(os.Stderr, "Էս command-ը run անելու համար պետք ա login եղած լինես։")
+			fmt.Fprintln(os.Stderr, "Էս command-ը run անելու համար պետք Է login եղած լինես։")
 			fmt.Fprintln(os.Stderr, "Արի սկզբից 'sovorem login' run անենք։")
 			os.Exit(1)
 		}

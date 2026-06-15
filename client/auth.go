@@ -100,7 +100,7 @@ func fetchWithAuth(method string, url string) ([]byte, error) {
 		return nil, err
 	}
 	if code == 402 {
-		return nil, fmt.Errorf("էս դասի test-երը run և submit անելու համար պետք ա ունենաս ակտիվ Sovorem.am membership\nhttps://sovorem.am/pricing")
+		return nil, fmt.Errorf("էս դասի test-երը run և submit անելու համար պետք Է ունենաս ակտիվ Sovorem.am membership\nhttps://sovorem.am/pricing")
 	}
 	if code != 200 {
 		return nil, fmt.Errorf("failed to %s to %s\nResponse: %d %s", method, url, code, string(body))

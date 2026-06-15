@@ -131,7 +131,7 @@ var configureBaseURLCmd = &cobra.Command{
 			return fmt.Errorf("սխալ URL. նշիր թե՛ protocol-ի scheme-ը (http/https), թե՛ hostname-ը")
 		}
 		if overrideBaseURL.Scheme == "https" {
-			fmt.Println("զգուշացում. protocol-ը սահմանված ա որպես https")
+			fmt.Println("զգուշացում. protocol-ը սահմանված Է որպես https")
 		}
 
 		viper.Set("override_base_url", overrideBaseURL.String())

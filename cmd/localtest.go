@@ -41,7 +41,7 @@ func localTestHandler(cmd *cobra.Command, args []string) error {
 
 	overrideBaseURL := viper.GetString("override_base_url")
 	if overrideBaseURL != "" {
-		fmt.Printf("Օգտագործվում ա override արած base_url-ը. %v\n", overrideBaseURL)
+		fmt.Printf("Օգտագործվում Է override արած base_url-ը. %v\n", overrideBaseURL)
 		fmt.Printf("Default-ին կարող ես վերադառնալ `sovorem config base_url --reset` run անելով\n\n")
 	}
 
@@ -92,7 +92,7 @@ func readLocalCLIData(path string) (api.CLIData, error) {
 		return api.CLIData{}, err
 	}
 	if len(data.Steps) == 0 {
-		return api.CLIData{}, errors.New("test manifest-ը պետք ա առնվազն մեկ step ներառի")
+		return api.CLIData{}, errors.New("test manifest-ը պետք Է առնվազն մեկ step ներառի")
 	}
 
 	return data, nil

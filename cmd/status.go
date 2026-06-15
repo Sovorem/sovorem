@@ -12,7 +12,7 @@ import (
 var statusCmd = &cobra.Command{
 	Use:   "status",
 	Short: "Տեսնել login-ի և CLI-ի version-ի status-ը",
-	Long:  "Ցույց տալ՝ արդյոք login ես եղել և արդյոք CLI-ը update արած ա",
+	Long:  "Ցույց տալ՝ արդյոք login ես եղել և արդյոք CLI-ը update արած Է",
 	Run: func(cmd *cobra.Command, args []string) {
 		checkAuthStatus()
 		fmt.Println() // Blank line for readability
@@ -31,7 +31,7 @@ func checkAuthStatus() {
 	// Verify token is still valid by attempting to refresh
 	_, err := api.FetchAccessToken()
 	if err != nil {
-		fmt.Println("Authentication-ի ժամկետն անցել ա")
+		fmt.Println("Authentication-ի ժամկետն անցել Է")
 		fmt.Println("Run արա 'sovorem login'՝ նորից login լինելու համար")
 		return
 	}
@@ -56,10 +56,10 @@ func checkVersionStatus(cmd *cobra.Command) {
 	}
 
 	if info.IsOutdated {
-		fmt.Printf("CLI-ը հնացել ա. %s → հասանելի ա %s\n", info.CurrentVersion, info.LatestVersion)
+		fmt.Printf("CLI-ը հնացել Է. %s → հասանելի Է %s\n", info.CurrentVersion, info.LatestVersion)
 		fmt.Println("Run արա 'sovorem upgrade'՝ update անելու համար")
 	} else {
-		fmt.Printf("CLI-ը update արած ա (%s)\n", info.CurrentVersion)
+		fmt.Printf("CLI-ը update արած Է (%s)\n", info.CurrentVersion)
 	}
 }
 

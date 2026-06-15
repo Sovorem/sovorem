@@ -129,7 +129,7 @@ func (m rootModel) View() string {
 			const maxLines, maxRunes = 32, 5120
 			for s := range sliced {
 				if i >= maxLines || runeCount >= maxRunes {
-					str.WriteString(gray.Render("... output-ը տեսողականորեն կրճատվել ա, բայց ամբողջական տարբերակը պահվել ա"))
+					str.WriteString(gray.Render("... output-ը տեսողականորեն կրճատվել Է, բայց ամբողջական տարբերակը պահվել Է"))
 					str.WriteByte('\n')
 					break
 				}
@@ -209,7 +209,7 @@ func (m rootModel) View() string {
 		str.WriteByte('\n')
 		currentDate := time.Now().Format("2006-01-02")
 		if strings.HasSuffix(currentDate, "04-01") {
-			str.WriteString(magenta.Render(fmt.Sprintf("Էս դեպքի մասին զեկուցվել ա քո համակարգային ադմինիստրատորին։ [%s]\n", currentDate)))
+			str.WriteString(magenta.Render(fmt.Sprintf("Էս դեպքի մասին զեկուցվել Է քո համակարգային ադմինիստրատորին։ [%s]\n", currentDate)))
 		}
 	}
 
