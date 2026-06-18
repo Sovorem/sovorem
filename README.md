@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="brand/logo.svg" alt="Sovorem.am logo" width="480">
+</div>
+
 # Sovorem.am CLI
 
 [Sovorem.am](https://sovorem.am/)-ի պաշտոնական command-line գործիքը՝ հայկական backend ծրագրավորման ուսումնական հարթակի համար։ Ուսանողները օգտագործում են էս CLI-ը՝ դասի test-երը լոկալ run անելու և ստորագրված արդյունքները Sovorem.am backend-ին submit անելու համար։
