@@ -6,6 +6,15 @@ import (
 	"github.com/goccy/go-json"
 )
 
+// The lesson delivery + grading types below are hand-maintained on purpose:
+// unlike the generated auth/user types in v1gen.go, they double as the CLI's
+// local YAML execution model (cmd/localtest.go parses cli.yaml into CLIData) and
+// carry yaml tags, methods (Sleepable) and constants a generated type can't.
+// They MIRROR the lesson schemas in web/contracts/v1.openapi.yaml (the /v1
+// source of truth); lessons_test.go locks them to that PascalCase wire format.
+// Edit the spec, the server route, and these types together when the wire
+// changes.
+
 type Lesson struct {
 	Lesson struct {
 		Type          string

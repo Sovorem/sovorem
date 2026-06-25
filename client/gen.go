@@ -1,9 +1,19 @@
 package api
 
-// The CLI's /v1 wire types are generated from an OpenAPI contract that is the
-// single source of truth shared with the web backend. v1.openapi.yaml here is a
-// vendored copy of web/contracts/v1.openapi.yaml in the sovorem-am repo — keep
-// the two in sync when the contract changes.
+// The CLI's pure /v1 wire types — auth + user (OtpLoginRequest, CliTokens,
+// CurrentUser, LogoutResponse, Error) — are GENERATED from an OpenAPI contract
+// into v1gen.go. Do not hand-edit them.
+//
+// v1.openapi.yaml here is a vendored copy of the GENERATED portion of
+// web/contracts/v1.openapi.yaml (the source of truth in the sovorem-am repo).
+// That spec ALSO documents the lesson delivery + grading wire (LessonResponse,
+// CLISubmission, LessonSubmissionEvent, …), but those schemas are deliberately
+// NOT vendored or generated here: the CLI's lesson types live by hand in
+// lessons.go because they double as its local YAML execution model (see
+// cmd/localtest.go) — carrying yaml tags, methods and constants a generated type
+// can't. lessons_test.go locks those hand-written types to the same wire shapes.
+// So: when the spec's auth/user schemas change, sync them here and regenerate;
+// when its lesson schemas change, update lessons.go + lessons_test.go to match.
 //
 // Regenerate v1gen.go after editing the spec:
 //
