@@ -1,0 +1,29 @@
+name: govulncheck
+
+# Daily: does our code reach a known vulnerability, in a module we require
+# or in the Go standard library? govulncheck only reports what the call
+# graph actually reaches. Runs on the newest stable Go — students build with
+# `go install …@latest` on their own toolchain, so this answers "is the
+# latest CLI safe on a current Go"; the go.mod `go` line is the floor for
+# everyone else. A red scheduled run is GitHub's email to you.
+
+on:
+  schedule:
+    - cron: "23 3 * * *" # 07:23 Yerevan
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  govulncheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: golang/govulncheck-action@032d45514ae346b1db93c04b0c90b841c370344f # v1.1.0
+        with:
+          go-version-input: stable
+          check-latest: true
+          go-package: ./...
