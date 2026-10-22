@@ -1,0 +1,33 @@
+# Keeps the CLI's modules and actions moving, mirroring sovorem-am (#268).
+# Security updates (repo setting) arrive as soon as an advisory lands,
+# grouped into one PR; the weekly Monday batch groups minor+patch.
+# `go test` + vet + generate-drift in test.yml is the gate.
+version: 2
+
+updates:
+  - package-ecosystem: gomod
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Asia/Yerevan
+    groups:
+      go-security:
+        applies-to: security-updates
+        patterns: ["*"]
+      go-minor-patch:
+        applies-to: version-updates
+        update-types: [minor, patch]
+        patterns: ["*"]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Asia/Yerevan
+    groups:
+      actions:
+        patterns: ["*"]
